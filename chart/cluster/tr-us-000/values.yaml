@@ -1,0 +1,67 @@
+# Default values for fiq-insights-superset.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: gcr.io/trinity-dev-200016/github-fortressiq-superset-custom:latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podSecurityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+
+service:
+  type: NodePort
+  port: 9000
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "tr-au-000-superset"
+    networking.gke.io/managed-certificates: "insight-a-certificate"
+  hosts:
+    - host: tr-au-000-superset.fortressiq.com  
+      paths: []
+  tls:
+    - secretName: superset-fortressiq
+      hosts:
+        - tr-us-0000-superset.fortressiq.com
+
+cloudenv:
+  azure: true
+  gcp: false
+
+persistent:
+  create: false
+  # create only if new pvc is needed
+  # defaults to re-use exisiting pvc
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 750Mi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
