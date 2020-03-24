@@ -1,6 +1,6 @@
 # Default values for fiq-insights-superset.
-# This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+# default is azure with existing ingress and persistent volume
 
 replicaCount: 1
 
@@ -31,7 +31,7 @@ ingress:
   tls:
     - secretName: superset-fortressiq
       hosts:
-        - tr-us-0000-superset.fortressiq.com
+        - tr-au-000-superset.fortressiq.com
 
 cloudenv:
   azure: true

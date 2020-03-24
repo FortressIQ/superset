@@ -53,9 +53,9 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - europe-west2-a
-    - europe-west2-b
-    - europe-west2-c    
+    {{- range .Values.cloudenv.gcpzones }}
+    - {{ . }}
+    {{- end }}
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
