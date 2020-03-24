@@ -9,7 +9,7 @@ metadata:
     app: superset
     release: insights-a  
     app.kubernetes.io/name: {{ include "fiq-insights-superset.fullname" . }}
-  name: insights-a-superset
+  name: {{ include "fiq-insights-superset.fullname" . }}
   resourceVersion: "133206134"
 spec:
   progressDeadlineSeconds: 600
@@ -105,7 +105,7 @@ metadata:
     app: superset
     release: insights-a
     app.kubernetes.io/name: {{ include "fiq-insights-superset.fullname" . }}
-  name: insights-a-superset
+  name: {{ include "fiq-insights-superset.fullname" . }}
   resourceVersion: "45926909"
 spec:
   externalTrafficPolicy: Cluster

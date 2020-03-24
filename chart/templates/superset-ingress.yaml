@@ -29,7 +29,7 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: insights-a-superset
+              serviceName: {{ include "fiq-insights-superset.fullname" . }}
               servicePort: {{ .Values.service.port }}
         {{- end }}
   {{- end }}

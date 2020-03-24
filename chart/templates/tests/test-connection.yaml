@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['insights-a-superset:{{ .Values.service.port }}']
+      args: ['{{ include "fiq-insights-superset.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never

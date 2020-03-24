@@ -31,15 +31,18 @@ ingress:
   tls:
     - secretName: superset-fortressiq
       hosts:
-        - tr-au-0000-superset.fortressiq.com
+        - tr-au-000-superset.fortressiq.com
 
 cloudenv:
-  azure: true
-  gcp: false
-  gcpzones: {}
+  azure: false
+  gcp: true
+  gcpzones:
+    - australia-southeast1-a
+    - australia-southeast1-b
+    - australia-southeast1-c
 
 persistent:
-  create: false
+  create: true
   # create only if new pvc is needed
   # defaults to re-use exisiting pvc
 
