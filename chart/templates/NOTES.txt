@@ -1,4 +1,4 @@
-0. helm <release> test
+0. helm test <release> 
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
 {{- range $host := .Values.ingress.hosts }}

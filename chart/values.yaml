@@ -25,13 +25,9 @@ ingress:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "tr-au-000-superset"
     networking.gke.io/managed-certificates: "insight-a-certificate"
-  hosts:
-    - host: tr-au-000-superset.fortressiq.com  
-      paths: []
+  host: tr-au-000-superset.fortressiq.com
   tls:
-    - secretName: superset-fortressiq
-      hosts:
-        - tr-au-000-superset.fortressiq.com
+    secretName: superset-fortressiq
 
 cloudenv:
   azure: true

@@ -43,7 +43,7 @@ spec:
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: standard
+  name: gcp-standard
   annotations:
     helm.sh/resource-policy: keep
 provisioner: kubernetes.io/gce-pd
@@ -64,7 +64,7 @@ metadata:
   annotations:
     helm.sh/resource-policy: keep
 spec:
-  storageClassName: standard
+  storageClassName: gcp-standard
   accessModes:
     - ReadWriteOnce
   resources:
