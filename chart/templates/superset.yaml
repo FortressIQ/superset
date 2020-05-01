@@ -91,7 +91,7 @@ spec:
       - name: superset-configs
         secret:
           defaultMode: 420
-          secretName: insights-a-superset
+          secretName: superset
       - name: storage-volume
         persistentVolumeClaim:
           claimName: insights-a-superset
