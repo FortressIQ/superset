@@ -1,0 +1,74 @@
+{{- if .Values.cloudenv.azure -}}
+  {{- if .Values.persistent.create -}}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: standard
+provisioner: kubernetes.io/azure-disk
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Managed
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: superset-cf
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: insights-a-superset
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+  {{- end }}
+{{- end }}
+{{- if .Values.cloudenv.gcp -}}
+  {{- if .Values.persistent.create -}}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gcp-standard
+  annotations:
+    helm.sh/resource-policy: keep
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard
+allowedTopologies:
+- matchLabelExpressions:
+  - key: failure-domain.beta.kubernetes.io/zone
+    values:
+    {{- range .Values.cloudenv.gcpzones }}
+    - {{ . }}
+    {{- end }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: insights-a-superset
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  storageClassName: gcp-standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+  {{- end }}      
+{{- end }}

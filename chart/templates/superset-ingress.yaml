@@ -1,0 +1,46 @@
+{{- if .Values.ingress.enabled -}}
+{{- if .Values.persistent.create -}}
+{{- if .Values.cloudenv.gcp -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "fiq-insights-superset.fullname" . }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+      {{- toYaml . | nindent 4 }}
+  {{- end }}  
+  labels:
+    app: superset
+spec:
+  backend:
+    serviceName: {{ include "fiq-insights-superset.fullname" . }}
+    servicePort: {{ .Values.service.port }}
+{{- end }}
+{{- if .Values.cloudenv.azure -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "fiq-insights-superset.fullname" . }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+      {{- toYaml . | nindent 4 }}
+  {{- end }}  
+  labels:
+    app: superset
+spec:
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ include "fiq-insights-superset.fullname" . }}
+          servicePort: {{ .Values.service.port }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.ingress.tls.secretName }}
+
+{{- end }}
+
+{{- end }}
+{{- end }}
